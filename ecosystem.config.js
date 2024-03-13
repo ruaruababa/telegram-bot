@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'Telegram Bot',
-      script: 'pm2 index.ts --watch',
+      script: 'ts-node index.ts',
       out_file: './out.log',
       error_file: './error.log',
     },

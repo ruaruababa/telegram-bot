@@ -91,11 +91,11 @@ bot.onText(/\/weather/, async (msg) => {
   bot.sendMessage(chatId, answer);
 });
 
-bot.on('message', async (msg) => {
-  const chatId = msg.chat.id;
+// bot.on('message', async (msg) => {
+//   const chatId = msg.chat.id;
 
-  bot.sendMessage(chatId, 'Still building this feature');
-});
+//   bot.sendMessage(chatId, 'Still building this feature');
+// });
 
 const cronWeather = async () => {
   const answer = await assistantCurrentWeather();
