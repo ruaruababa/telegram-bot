@@ -1,7 +1,6 @@
 import cron from 'node-cron';
 import TelegramBot from 'node-telegram-bot-api';
 import { assistantCurrentWeather } from './response';
-import { getCurrentWeather } from './serivce';
 // replace the value below with the Telegram token you receive from @BotFather
 const token = '7078651175:AAHmmTohCdWTvLLzckLa23KGneEkX1Bi9jc';
 
@@ -88,48 +87,15 @@ bot.onText(/\/help/, (msg) => {
 
 bot.onText(/\/weather/, async (msg) => {
   const chatId = msg.chat.id;
-  const weather = await getCurrentWeather();
-  console.log('weather', weather);
-  bot.sendMessage(chatId, 'Weather');
+  const answer = await assistantCurrentWeather();
+  bot.sendMessage(chatId, answer);
 });
 
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
-  console.log('msg', chatId);
 
-  const answer = await assistantCurrentWeather();
-
-  bot.sendMessage(chatId, answer);
+  bot.sendMessage(chatId, 'Still building this feature');
 });
-
-// function sendMessage() {
-//   const message = 'This is a test message sent every 5 seconds.';
-
-//   const wellWishes = [
-//     'Chúc em có một ngày vui vẻ và đầy năng lượng!',
-//     'Mong em sẽ tận hưởng mọi khoảnh khắc trong chuyến đi!',
-//     'Hãy tận hưởng những trải nghiệm mới và thú vị khi đi chơi nhé!',
-//     'Chúc em luôn an toàn và hạnh phúc trên mọi hành trình!',
-//     'Hy vọng em sẽ tìm thấy niềm vui và hạnh phúc ở mọi nơi em đến!',
-//     'Chúc em gặp nhiều bạn mới và tạo ra những kỷ niệm đáng nhớ!',
-//     'Hãy tận hưởng từng phút giây ở bất kỳ đâu em đến!',
-//     'Chúc em có một chuyến đi thú vị và đáng nhớ!',
-//     'Mong em sẽ tìm thấy sự thư giãn và hạnh phúc trong chuyến đi của mình!',
-//     'Hãy cảm nhận và tận hưởng mọi điều tuyệt vời mà cuộc sống mang lại cho em!',
-//   ];
-
-//   bot
-//     .sendMessage(
-//       -1002062766625,
-//       wellWishes[Math.floor(Math.random() * wellWishes.length)]
-//     )
-//     .then((message) => {
-//       console.log('Success');
-//     })
-//     .catch((error) => {
-//       console.log('Error', error);
-//     });
-// }
 
 const cronWeather = async () => {
   const answer = await assistantCurrentWeather();
@@ -139,6 +105,9 @@ const cronWeather = async () => {
 // cron.schedule('*/5 * * * * *', cronWeather);
 
 cron.schedule('0 8 * * *', cronWeather);
+
+// Schedule task for 12:00 PM every day
+cron.schedule('0 14 * * *', cronWeather);
 
 // Schedule task for 6:00 PM every day
 cron.schedule('0 18 * * *', cronWeather);
