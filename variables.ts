@@ -4,6 +4,8 @@ dotenv.config();
 export const PORT = process.env.PORT || 3000;
 export const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 export const AIRVISUAL_API_KEY = process.env.AIRVISUAL_API_KEY;
+export const AIRVISUAL_API_KEY1 = process.env.AIRVISUAL_API_KEY1;
+export const AIRVISUAL_API_KEY2 = process.env.AIRVISUAL_API_KEY1;
 export const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || '';
 export const HANOI_LAT = 21.012463;
 export const HANOI_LON = 105.805994;

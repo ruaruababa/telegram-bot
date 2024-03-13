@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {
   AIRVISUAL_API_KEY,
+  AIRVISUAL_API_KEY1,
+  AIRVISUAL_API_KEY2,
   HANOI_LAT,
   HANOI_LON,
   LANG,
@@ -21,7 +23,19 @@ export const getWeatherForecastFuture = async () => {
 };
 
 export const getAirQuantity = async () => {
-  const url = `http://api.airvisual.com/v2/city?city=Hanoi&state=Hanoi&country=Vietnam&key=${AIRVISUAL_API_KEY}`;
-  const response = await axios.get(url);
-  return response.data;
+  const keys = [AIRVISUAL_API_KEY, AIRVISUAL_API_KEY1, AIRVISUAL_API_KEY2];
+  let data: any = null;
+
+  for (const key of keys) {
+    try {
+      const url = `http://api.airvisual.com/v2/city?city=Hanoi&state=Hanoi&country=Vietnam&key=${key}`;
+      const response = await axios.get(url);
+      data = response.data;
+      break; // Thoát vòng lặp khi lấy được dữ liệu thành công
+    } catch (error) {
+      console.error(`Error occurred with API key ${key}:`, error);
+    }
+  }
+
+  return data;
 };
